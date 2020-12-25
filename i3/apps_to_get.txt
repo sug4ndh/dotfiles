@@ -1,0 +1,4 @@
+pyenv, pyenv-venv, morc_menu, nerd fonts, snfs font, tilda, pcmanfm, feh, htop
+pop os icon-theme, atom, spotify, virtualbox, rofi, compton, dmenu, ranger,
+google-chrome, pavucontrol, redshift, zathura, w3m, w3m-img, skype, steam,
+tlp, lxappearance, nvidia-prime, pywal, oh-my-bash

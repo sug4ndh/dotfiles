@@ -9,21 +9,47 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
+# colors for windows
+# inactive-bg-color = lightdark-grey(orig - #534c48), inactive-text-color = lightgrey,
+# urgent-bg-color = orange, urgent-text-color = white
+# active-bg-color = orange, active-text-color = blue,
+#colors from pywal
+#set_from_resource $fg i3wm.color7 #f0f0f0
+#set_from_resource $bg i3wm.color2 #f0f0f0
+# old inactive-bg-color #4e4743
+set $inactive-bg-color   #ffffff
 set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
-set $urgent-bg-colorz    #A85854
+set_from_resource $active-bg-color     i3wm.color1 #faa41a
+set_from_resource $active-text-color   i3wm.color7 #48b9c7
+set $urgent-bg-color                               #e53935
+set $urgent-text-color                             #f3f4f5
+set_from_resource $indicator           i3wm.color7 #48b9c7
+
+
+# colors for bar
+# bg-color = dark-grey
+# old bg color #4e4743
+set $bg-color   #ffffff
+# colors for workspace icons on bar
+# old inactive-bg-color-bar #676E7D
+set $inactive-bg-color-bar  #f1e3d5
+set_from_resource $inactive-text-color-bar i3wm.color2 #faa41a
+set_from_resource $active-bg-color-bar     i3wm.color7 #48b9c7
+set_from_resource $active-text-color-bar   i3wm.color2 #f3f4f5
+set_from_resource $urgent-bg-color-bar     i3wm.color2 #faa41a
+set_from_resource $urgent-text-color-bar   i3wm.color0 #000000
+
+# Main key
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:System San Francisco Display Regular 8, fontawesome-webfont 8
+#font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
+font pango:  TerminessTTF Nerd Font, ProFontIIx Nerd Font 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -31,8 +57,6 @@ font pango:System San Francisco Display Regular 8, fontawesome-webfont 8
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
-
-# Custom bindings
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -44,18 +68,24 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run -lines 8 -eh 2 -width 50 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 14" -show-icons -drun-icon-theme "Flat-Remix-Blue"
+#-opacity "85"
+bindsym $mod+d exec rofi -combi-modi window#drun#ssh -show-icons -drun-icon-theme "Simply-Purple-Circles" -show run
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# start morc menu
+bindsym $mod+z exec /home/sug/.config/i3/morc_menu
+bindsym $mod+F2 exec dmenu_run -nb blue -sb black
+#/home/sug/.config/i3/morc_menu
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+odiaeresis focus right
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -67,7 +97,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
+bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -85,7 +115,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+bindsym $mod+q layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -99,38 +129,59 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+s focus child
+
+# Mouse bindings
+# The middle button over a titlebar kills the window
+bindsym --release button2 kill
+
+# The right button toggles floating
+bindsym button3 floating toggle
+
+# The side buttons move the window around
+bindsym button9 move left
+
+# workspace names
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 ""
+set $workspace5 ""
+set $workspace6 ""
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+#bindsym $mod+0 workspace $workspace10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+#bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -143,7 +194,7 @@ mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
-        bindsym odiaeresis resize grow width 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -157,64 +208,112 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+bindsym Control+Left resize shrink width 10 px or 10 ppt
+bindsym Control+Right resize grow width 10 px or 10 ppt
 
-# window colors
+new_window normal 6
+
 #                       border              background          text                 indicator
-#client.focused          $urgent-bg-color   $urgent-bg-colorz   $text-color          #00ff00
-client.focused          $urgent-bg-color    #821522             $text-color          #00ff00
-client.unfocused        $inactive-bg-color  $inactive-bg-color  $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color  $inactive-bg-color  $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color    $text-color          #00ff00
+#client.focused         $urgent-bg-color    $urgent-bg-color    $text-color          #00ff00
+client.focused          $active-bg-color    $active-bg-color    $active-text-color   $indicator
+client.unfocused        $inactive-bg-color  $inactive-bg-color  $inactive-text-color $indicator
+client.focused_inactive $inactive-bg-color  $inactive-bg-color  $inactive-text-color $indicator
+client.urgent           $urgent-bg-color    $urgent-bg-color    $urgent-text-color   $indicator
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status --config ~/.config/i3/i3status.conf
-	    tray_output primary
-        colors {
-	    	background $bg-color
-	    	separator #757575
-            #                  border             background         text
-		focused_workspace  $bg-color            #821522               $text-color
-		inactive_workspace $inactive-bg-color   $inactive-bg-color    $inactive-text-color
-		urgent_workspace   $urgent-bg-color     $217622               $text-color
-		#urgent_workspace  $urgent-bg-color     $urgent-bg-color      $text-color
-    }
+	#font pango: TerminessTTF Nerd Font Mono, TerminessTTF NF, TerminessTTF Nerd Font:style=Regular 12
+  font pango: SFNS Display, ProFontIIx Nerd Font, ProFontIIx NF 9
+  status_command i3status --config ~/.config/i3/i3status.conf
+  position top
+  tray_output primary
+  colors {
+  	background $bg-color
+    #statusline $active-text-color-bar
+    separator  #757575
+          #                  border               background              text
+    focused_workspace        $bg-color            $active-bg-color-bar    $active-text-color-bar
+    inactive_workspace       $bg-color            $inactive-bg-color-bar  $inactive-text-color-bar
+    urgent_workspace         $bg-color            $urgent-bg-color-bar    $urgent-text-color-bar
+  }
 }
-# floating
+
+#bar toggle
+bindsym $mod+m bar mode toggle
+
+# Various Exits
+set $Locker i3lock-fancy && sleep 1
+
+bindsym $mod+0 mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    #bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# window management
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="(?i)skype"] floating enable
+for_window [class="(?i)steam"] floating enable
+for_window [class="(?i)virtualbox"] floating enable
 for_window [class="qTox"] floating enable
 for_window [class="Pavucontrol"] floating enable
-for_window [class="Skype"] floating enable
 
-# Mouse bindings
-# The middle button over a titlebar kills the window
-bindsym --release button2 kill
+for_window [class="Spotify"] move to workspace $workspace4
+for_window [class="Steam"] move to workspace $workspace5
+for_window [class="Skype"] move to workspace $workspace6
 
-# The right button toggles floating
-bindsym button3 floating toggle
+#background
+#exec_always feh /usr/share/backgrounds/linuxmint-tara/jspires_waiting_for_the_waves.jpg
+exec_always feh --bg-fill /home/sug/Pictures/wallpaper/min-mountains.jpg
+#term color scheme
+#exec wal -i /usr/share/backgrounds/pop/kate-hazen-unleash-your-robot.png -n --vte
+exec wal -R -n --vte
 
-# The side buttons move the window around
-bindsym button9 move left
+# Pulse Audio controls
+bindsym $mod+equal exec pactl set-sink-volume 0 +5% #increase sound volume
+bindsym $mod+minus exec pactl set-sink-volume 0 -5% #decrease sound volume
 
-# Wallpaper and apps
-exec_always feh --bg-center /home/sug/wallpapers/GSD.jpg
+# Auto launch
 exec nm-applet
 exec tilda
+#exec volumeicon
 exec gtk-redshift
 exec_always compton -f
+#exec indicator-cpufreq
+#exec_always --no-startup-id autotiling
 
-#Apps
+# Apps shortcuts
 bindsym mod4+a exec google-chrome --password-store=gnome
 bindsym mod4+s exec pcmanfm
-bindsym mod4+d exec firefox
-bindsym mod4+v exec virtualbox
-bindsym mod4+x exec xed
-bindsym mod4+c exec spotify
+bindsym mod4+Shift+s exec i3-sensible-terminal -e /bin/bash ranger
+bindsym mod4+Shift+a exec firefox
+bindsym mod4+x exec atom
+bindsym mod4+Shift+x exec /opt/sublime_text/sublime_text
+bindsym mod4+z exec spotify
+bindsym $mod+t exec st
+bindsym mod4+Shift+z exec steam
 
-#Screen lock
-bindsym mod4+q exec "~/.config/i3/autolock.sh"
-bindsym F4 exec "~/.config/i3/autolock.sh"
-exec_always xautolock -time 10 -locker '~/.config/i3/autolock.sh' &
+# Keyboard layout management
+set $keyboard_layout Keyboard Layout: (s) Swedish, (e) US English
+mode "$keyboard_layout" {
 
-#Monitor config
-exec xrandr --output DP-1.1 --mode 2560x1440 --pos 3600x0 --rotate normal --output DP-1.3 --mode 1680x1050 --pos 0x0 --rotate normal --output HDMI-0 --off --output DP-2 --off --output DP-1 --off --output DP-0 --primary --mode 1920x1080 --pos 1680x0 --rotate normal
+bindsym s exec --no-startup-id setxkbmap se ,mode "default"
+bindsym e exec --no-startup-id setxkbmap us ,mode "default"
+
+# back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+bindsym mod4+k mode "$keyboard_layout"
