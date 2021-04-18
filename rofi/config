@@ -1,1 +1,14 @@
-rofi.theme: /usr/share/rofi/themes/glue_pro_blue.rasi
+#rofi.lines: 5
+#rofi.width:500
+#rofi.eh: 2
+#rofi.padding: 200
+#rofi.fullscreen: true
+#rofi.bw: 0
+#rofi.separator-style: none
+#rofi.hide-scrollbar: true
+# Dark theme.
+
+rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
+
+# Light theme.
+# rofi.theme: ~/.cache/wal/colors-rofi-light.rasi

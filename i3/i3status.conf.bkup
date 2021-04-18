@@ -1,0 +1,88 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+# c1='#48b9c7'
+# c2='#ffffff'
+general {
+        colors = true
+        interval = 1
+        markup = "pango"
+}
+# icons               ﮊ                               💀 👿            ﬙ ﭾ 阮    墳
+#order += "ipv6"
+
+order += "cpu_temperature 0"
+order += "volume master"
+order += "disk /"
+order += "disk /home"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+# order += "load"
+order += "tztime cal"
+order += "tztime clock"
+
+volume master {
+format = "<span color='#48b9c7'>: </span> %volume"
+format_muted = "<span color='#48b9c7'>: </span>%volume"
+device = "default"
+mixer = "Master"
+mixer_idx = 0
+}
+
+cpu_temperature 0 {
+	format = "<span color='#48b9c7'></span>: %degrees °C"
+  max_threshold = "85"
+	path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+}
+
+wireless _first_ {
+        # %ip To get ip address, %essid to get name
+        format_up = "<span color='#48b9c7'> </span>:<span color='#ffffff'>%quality</span>"
+        format_down = "<span color='#48b9c7'> </span>:ﮊ"
+}
+
+ethernet _first_ {
+        # if you use %speed, i3status requires root privileges
+        format_up = "<span color='#48b9c7'> </span>:%ip (%speed)"
+        format_down = "<span color='#48b9c7'> : </span>ﮊ"
+
+}
+
+battery all {
+# Add %percentage to get percentage
+        format = "%status %remaining"
+        format_down = "No battery"
+        status_chr = ":CHR"
+        status_bat = "<span color='#48b9c7'></span>:BAT"
+        status_unk = "<span color='#faa41a'>:UNK</span>"
+        status_full = "<span color='#48b9c7'></span>:FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+tztime cal {
+        format = "<span foreground='#48b9c7'> </span>%time"
+        format_time = "%Y-%m-%d"
+}
+
+tztime clock {
+        format = "<span foreground='#48b9c7'> </span>%time"
+        format_time = "%H:%M:%S"
+}
+
+load {
+        format = "<span color='#48b9c7'></span>:%1min"
+}
+
+disk "/" {
+        format = "<span color='#48b9c7'> /</span>: %avail"
+}
+
+disk "/home" {
+        format = "<span color='#48b9c7'> /home</span>: %avail"
+}

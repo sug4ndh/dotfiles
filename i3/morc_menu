@@ -206,11 +206,11 @@ declare \
 
 # Settings of dmenu, subject to modification by conf files
 # refer to conf file for examples
-# menu_cmd="dmenu -i -l MENU_LINES "
+#menu_cmd="dmenu -i -l MENU_LINES "
 source "$HOME/.cache/wal/colors.sh"
 
-menu_cmd="dmenu -i -nb "$color0" -nf "$color7" -sb "$color2" -sf "$color7" -l 25 -y 200"
-#menu_cmd="rofi -dmenu -i "
+#menu_cmd="dmenu -i -nb "$color0" -nf "$color7" -sb "$color2" -sf "$color7" -l 25 -y 200"
+menu_cmd="rofi -dmenu -i icon-theme "Big-Sur" -show-icons -fullscreen true"
 error_cmd="dmenu -i -l 20 -nb red -nf black -fn DejaVu"
 
 # Settings of morc_menu, subject to modification by conf files
